@@ -105,6 +105,8 @@ KEYWORDS = {
     "someday": _("someday"),
     # Translators: Used in search parsing, no spaces, lowercased in code
     "notag": _("notag"),
+    # Translators: Used in search parsing, no spaces, lowercased in code
+    "week": _("week"),
 }
 
 # transform keywords and their translations into a list of possible commands
@@ -274,6 +276,7 @@ def search_filter(task, parameters=None):
             'soon': lambda task, v: task.get_due_date() == Date.soon(),
             'someday': lambda task, v: task.get_due_date() == Date.someday(),
             'notag': lambda task, v: task.get_tags() == [],
+            'week': lambda task, v: task.get_due_date() and not task.get_due_date().is_fuzzy() and task.get_due_date() < Date.today()._parse_text_representation_for_recurrency('week')
         }
 
         for command in commands_list:
