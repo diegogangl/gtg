@@ -1,7 +1,7 @@
 {
   "app-id": "org.gnome.GTGDevel",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "40",
+  "runtime-version": "43",
   "sdk": "org.gnome.Sdk",
   "command": "gtg",
   "tags": ["devel", "development", "nightly"],
@@ -120,6 +120,17 @@
         "type": "git",
         "url": "https://github.com/getting-things-gnome/liblarch"
       }]
+    },
+    {
+	"name": "gtksourceview",
+	"buildsystem": "meson",
+	"sources": [
+	  {
+	    "type": "git",
+	    "url": "https://gitlab.gnome.org/GNOME/gtksourceview.git",
+	    "tag": "5.6.1"
+	  }
+	]
     },
     {
       "name": "gtg",
