@@ -1,4 +1,4 @@
-lxml==4.5.2
+lxml==4.9.2
 caldav==0.8.0
 dbus-python==1.2.18
 git+https://github.com/getting-things-gnome/liblarch.git#egg=liblarch
