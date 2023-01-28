@@ -47,9 +47,9 @@ modules:
     buildsystem: simple
     build-commands:
       - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-        --prefix=${FLATPAK_DEST} "dbus-python==1.2.8" --no-build-isolation
+        --prefix=${FLATPAK_DEST} "dbus-python==1.2.18" --no-build-isolation
     sources:
       - type: file
-        url: https://files.pythonhosted.org/packages/3f/e7/4edb582d1ffd5ac3c84188deea32e960b5c8c0fe1da56ce70224f85ce542/dbus-python-1.2.8.tar.gz
-        sha256: abf12bbb765e300bf8e2a1b2f32f85949eab06998dbda127952c31cb63957b6f
+        url: https://files.pythonhosted.org/packages/b1/5c/ccfc167485806c1936f7d3ba97db6c448d0089c5746ba105b6eb22dba60e/dbus-python-1.2.18.tar.gz
+        sha256: 92bdd1e68b45596c833307a5ff4b217ee6929a1502f5341bae28fd120acf7260
 name: python3-requirements
