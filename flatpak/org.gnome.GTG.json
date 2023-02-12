@@ -31,7 +31,7 @@
     "*.pyo"
   ],
     "modules": [
-    "python3-requirements.yaml",
+    "python3-requirements-dev.yaml",
     {
 	"name": "gtksourceview",
 	"buildsystem": "meson",
