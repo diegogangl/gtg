@@ -46,6 +46,7 @@ from GTG.gtk.editor.calendar import GTGCalendar
 from GTG.gtk.tag_completion import TagCompletion
 from GTG.core.dates import Date
 from GTG.core.tasks import Filter, Status, Task
+from GTG.backends import BackendFactory
 
 log = logging.getLogger(__name__)
 PANE_STACK_NAMES_MAP = {
@@ -164,6 +165,11 @@ class MainWindow(Gtk.ApplicationWindow):
         # This needs to be called again after setting everything up,
         # so the buttons start disabled
         self.on_selection_changed()
+
+        backend_factory = BackendFactory()
+        errors = backend_factory.get_backend_errors()
+        if errors:
+            self._show_backend_errors(errors)
 
 # INIT HELPER FUNCTIONS #######################################################
     def _init_context_menus(self):
@@ -366,7 +372,7 @@ class MainWindow(Gtk.ApplicationWindow):
                 """\
         Many others contributed to GTG over the years.
         You can find them on {OH_stats} and {GH_stats}."""
-            ).format(OH_stats=ohstats_url, GH_stats=ghstats_url)
+            ).format(OH_stats=ohstats_url, GH_STATS=ghstats_url)
         )
 
         self.about.set_transient_for(self)
@@ -1724,6 +1730,15 @@ class MainWindow(Gtk.ApplicationWindow):
         infobar.set_vexpand(True)
         self.vbox_toolbars.add(infobar)
         return infobar
+
+    def _show_backend_errors(self, errors):
+        # Example: show as a Gtk.InfoBar
+        infobar = Gtk.InfoBar()
+        infobar.set_message_type(Gtk.MessageType.ERROR)
+        label = Gtk.Label(label="\n".join(errors))
+        infobar.get_content_area().add(label)
+        infobar.show_all()
+        self.vbox_toolbars.pack_start(infobar, False, False, 0)
 
 # SEARCH RELATED STUFF ########################################################
     def get_selected_search(self):

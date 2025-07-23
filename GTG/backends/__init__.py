@@ -54,6 +54,7 @@ class BackendFactory(Borg):
             # This object has already been constructed
             return
         self.backend_modules = {}
+        self.backend_errors = []  # Add this line
         backend_files = self._find_backend_files()
         # Create module names
         module_names = [f.replace(".py", "") for f in backend_files]
@@ -64,13 +65,14 @@ class BackendFactory(Borg):
             try:
                 __import__(extended_module_name)
             except ImportError as exception:
-                # Something is wrong with this backend, skipping
-                log.warning("Backend %s could not be loaded: %r",
-                            module_name, exception)
+                msg = f"Backend {module_name} could not be loaded: {exception}"
+                log.warning(msg)
+                self.backend_errors.append(msg)  # Collect error
                 continue
-            except Exception:
-                # Other exception log as errors
-                log.exception("Malformated backend %s:", module_name)
+            except Exception as e:
+                msg = f"Malformated backend {module_name}: {e}"
+                log.exception(msg)
+                self.backend_errors.append(msg)  # Collect error
                 continue
 
         def browse_subclasses(cls):
@@ -171,3 +173,6 @@ class BackendFactory(Borg):
             backends.append(backend_data)
 
         return backends
+
+    def get_backend_errors(self):
+        return getattr(self, "backend_errors", [])
